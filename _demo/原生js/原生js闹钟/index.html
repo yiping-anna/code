@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>闹钟</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <audio src="http://f2.htqyy.com/play7/1666/mp3/11" preload="auto" id="music"></audio>
+    <div class="wrapper">
+        <div class="title"></div>
+        <div class="now-time">
+            <div class="logo">
+                <img src="logo.jpg" alt="">
+			</div>
+                <div class="time-box">
+                    北京时间&nbsp&nbsp<span id="nowTime"></span>
+                </div>
+            </div>
+            <div class="set-time">
+                <span class="title">
+                您的闹铃时间</span>
+                <input type="number" value="23" min="0" max="23" size="1" id="hour">：
+                <input type="number" value="59" min="0" max="59" size="1" id="mintue">：
+                <input type="number" value="59" min="0" max="59" size="1" id="second">
+            </div>
+            <div class="button-box">
+            	 <input type="button" value="设置闹钟" id="open">
+                <input type="button" value="关闭闹钟" id="close" disabled>
+            </div>
+        </div>
+</body>
+<script>
+window.onload = function() {
+    setInterval(rendeNowTime, 1000);
+    setClock();
+
+}
+
+function getSetTime() {
+    var hour = '';
+    var mintue = '';
+    var second = '';
+    var input = document.getElementsByTagName('input');
+    hour = document.getElementById('hour').value;
+    mintue = document.getElementById('mintue').value;
+    second = document.getElementById('second').value;
+    /*for(var i=0;i<input.length;i++){
+    input[i].oninput = function(){
+    	hour = document.getElementById('hour').value;
+    	mintue = document.getElementById('mintue').value;
+    	second = document.getElementById('second').value;
+    	console.log(hour);
+    }
+    }*/
+    return {
+        hour: hour,
+        mintue: mintue,
+        second: second
+    }
+}
+
+function rendeNowTime() {
+    var nowtime = new Date();
+    var min = nowtime.getMinutes();
+    var hou = nowtime.getHours();
+    var sec = nowtime.getSeconds();
+    var content = document.getElementById('nowTime');
+    content.innerHTML = "" + add_0(hou) + ':' + add_0(min) + ':' + add_0(sec);
+    return {
+        hour: hou,
+        mintue: min,
+        second: sec
+    }
+}
+
+
+function setClock() {
+    var music = document.getElementById("music");
+    var open = document.getElementById('open');
+    var close = document.getElementById('close');
+    var setTime = '';
+    var nowTime = '';
+    var d = false;
+    var timeset;
+    console.log(1);
+    open.addEventListener('click', function() {
+    	clearInterval(timeset);
+        setTime = getSetTime();
+        nowTime = rendeNowTime();
+        if (nowTime.hour <= setTime.hour && nowTime.mintue <= setTime.mintue && nowTime.second <= setTime.second) {
+            d = true;
+        } else { d = false ;alert("闹钟要明天才响哈！！！")};
+        timeset = setInterval(function() {
+            setTime = getSetTime();
+            nowTime = rendeNowTime();
+            var d1 = nowTime.hour >= setTime.hour && nowTime.mintue >= setTime.mintue && nowTime.second >= setTime.second;
+            if (setTime.hour > nowTime.hour || (setTime.hour == nowTime.hour && setTime.mintue > nowTime.mintue) || (setTime.hour == nowTime.hour && setTime.mintue == nowTime.mintue && setTime.second > nowTime.second)) { d = true }
+            console.log(3);
+            if (d1 && d) {
+                console.log(2);
+                if (!music.play()) {
+                    music.play();
+                    clearInterval(timeset);
+                }
+            }
+        }, 1000);
+
+        changeDom('set');
+    })
+    close.addEventListener('click', function() {
+        clearInterval(timeset);
+        music.pause();
+        music.load();
+        changeDom('cancel');
+    })
+}
+
+
+function changeDom(flag){
+	var close = document.getElementById('close');
+	var open = document.getElementById('open');
+	if (flag == "set") {
+		open.style.background = 'rgb(117,185,124)';
+		close.style.background = 'rgb(117,185,124)';
+		close.removeAttribute('disabled');
+	}else{
+		open.style.background = 'buttonface';
+		close.style.background = 'buttonface';
+	}
+	
+}
+
+function add_0(m) {
+    if (m < 10) {
+        return "0" + m
+    } else {
+        return m;
+    }
+
+}
+</script>
+
+</html>

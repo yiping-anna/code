@@ -1,0 +1,71 @@
+*{
+	margin:0;
+	padding:0;
+
+}
+
+html,body{
+	height: 100%;
+	width: 100%;
+}
+
+.wrapper{
+	width: 50%;
+	height: 100%;
+	background: rgb(67,68,70);
+	margin: 0 auto;
+}
+
+.title{
+
+}
+
+.now-time{
+	width: 100%;
+	height: auto;
+}
+
+.now-time .logo{
+	text-align: center;
+}
+
+.now-time .time-box{
+	text-align: center;
+	font-size: 24px;
+	color: #fff;
+}
+
+.set-time{
+	text-align: center;
+	padding: 30px;
+	color: #fff;
+	word-spacing: -12px;
+}
+
+.set-time .title{
+	padding: 0 20px;
+}
+
+.set-time input{
+	width: 70px;
+	height: 32px;
+	outline: none;
+	text-align: center;
+	margin: 0 10px;
+}
+
+.button-box{
+	text-align: center;
+	padding: 10px;
+}
+
+.button-box input{
+/* background: rgb(117,185,124); */
+
+border:0;
+    width: 93px;
+    height: 30px;
+    cursor: pointer;
+    margin: 0 24px;
+}
+

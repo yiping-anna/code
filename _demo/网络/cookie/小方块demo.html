@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			padding: 0;
+			margin:0;
+		}
+	</style>
+</head>
+<body>
+	<div id="demo" style="height:100px;width:100px;background-color: red;position: absolute;"></div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script>
+
+
+
+
+	//引用cookie封装对象
+	var manageCookie={
+			setCookie:function(name,value,time){
+				document.cookie = name+"="+value+";max-age="+time;
+				return this;
+			},
+			removeCookie:function(name){
+				return this.setCookie(name,"",-1);
+			},
+			getCookie:function(name,callback){
+				var allCookieArr = document.cookie.split("; ");
+				for(var i =0;i<allCookieArr.length;i++){
+					var itemCookieArr = allCookieArr[i].split('=');
+					if(name == itemCookieArr[0]){
+						callback(itemCookieArr[1]);
+						return this;
+					}
+				}
+				callback(undefined);
+				return this;
+			}
+		}
+
+
+	//获取cookie
+	var boxleft,boxtop;
+	manageCookie.getCookie("boxLeft",function(value){boxleft = value});
+	manageCookie.getCookie("boxTop",function(value){boxtop = value});
+	
+	$("#demo").css({
+		"left":parseInt(boxleft),
+		"top":parseInt(boxtop),
+	});
+
+	//方块拖动
+	$("#demo").on("mousedown",function(e){
+		var disX,disY;
+		disY = e.originalEvent.y - $(this).position().top;
+		disX=e.originalEvent.x - $(this).position().left;
+
+		$(document).on("mousemove",function(e){
+			var mouseLeft = e.originalEvent.x;
+			var mouseRight = e.originalEvent.y;
+			$("#demo").css({
+				"left":mouseLeft-disX,
+				"top":mouseRight - disY,
+			});
+
+		})
+		$(document).on("mouseup",function(){
+			$(document).unbind("mousemove");
+			//保存cookie
+			var boxLeft = $("#demo").position().left;
+			var boxTop = $("#demo").position().top;
+			manageCookie.setCookie("boxLeft",boxLeft,30000).setCookie("boxTop",boxTop,30000);
+		})
+	})
+
+</script>
+</html>

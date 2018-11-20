@@ -1,0 +1,151 @@
+*{
+	margin:0;
+	padding: 0;
+}
+
+body{
+	font-size: 12px;
+}
+
+.wrapper{
+	width: 500px;
+	min-height: 100vh;
+	border:1px solid black;
+	margin:0 auto;
+	/* background: rgb(245,245,245); */
+	position: relative;
+}
+
+.top-title{
+	width: 500px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+	background: gray;
+	position: fixed;
+	z-index: 9999;
+	top:0;
+}
+
+.contentbg{
+	width: 500px;
+	height: calc(100vh - 40px - 50px);
+	background: url(../img/bg.jpg);
+	background-size:cover;
+	position:fixed;
+	top:40px;
+	z-index: -9999;
+}
+
+.talk-content{
+	padding: 5px;
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+
+.talk-box{
+	padding: 5px 0;
+}
+
+.mine-box{
+	text-align: right;
+}
+
+.robot-box{
+	text-align: left;
+}
+
+.logo{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	vertical-align: top;
+}
+
+.talk-textBox{
+	min-height: 50px;
+	max-width: 230px;
+	border-radius: 5px;
+	position: relative;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.talk-mine{
+	background: rgb(158,234,106);
+	margin-right: 5px;
+}
+
+.talk-robot{
+	background: #fff;
+	margin-left: 5px;
+}
+
+/* .talk-textBox:before{
+    content:"";
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+} */
+
+.talk-text{
+	line-height: 20px;
+	display: inline-block;
+	padding: 5px;
+	padding: 12px;
+}
+
+.triger{
+	position: absolute;
+	border-top:10px solid transparent;
+	border-bottom:10px solid transparent;
+}
+.trigerRight{
+	border-left:10px solid rgb(158,234,106);
+	border-right:10px solid transparent;
+	top: 13px;
+    right: -16px;
+}
+.trigerLeft{
+	border-left:10px solid transparent;
+	border-right:10px solid #fff;
+	top: 13px;
+    left: -16px;
+}
+
+.bottom{
+	background: #ddd;
+	position: fixed;
+	bottom: 0;
+	height: 50px;
+	width: 500px;
+	display: flex;
+	align-items: center;
+
+}
+
+.input-box{
+	float: left;
+	padding:0 5px;
+}
+.input{
+	outline: none;
+	height: 30px;
+	width: 400px;
+}
+
+.sendBtn{
+	background: #bbb;
+	color: white;
+	width: 66px;
+    height: 30px;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sendBtn:hover{
+	background: green;
+}

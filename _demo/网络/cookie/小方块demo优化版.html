@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<div id="demo" style="width:100px;height: 100px;background-color: red;position:absolute;"></div>
+
+	<script>
+		
+	var manageCookie={
+			setCookie:function(name,value,time){
+				document.cookie = name+"="+value+";max-age="+time;
+				return this;
+			},
+			removeCookie:function(name){
+				return this.setCookie(name,"",-1);
+			},
+			getCookie:function(name,callback){
+				var allCookieArr = document.cookie.split("; ");
+				for(var i =0;i<allCookieArr.length;i++){
+					var itemCookieArr = allCookieArr[i].split('=');
+					if(name == itemCookieArr[0]){
+						callback(itemCookieArr[1]);
+						return this;
+					}
+				}
+				callback(undefined);
+				return this;
+			}
+		}
+
+		var oDiv = document.getElementById("demo");
+
+		var moveDivCookie = {
+			init:function(dom){
+				this.dom = dom;
+				var _this = this;
+				manageCookie.getCookie('left',function(data){
+					_this.dom.style.left = data + 'px';
+				}).getCookie('top',function(data){
+					_this.dom.style.top = data + 'px';
+				})
+				this.bindEvent();
+			},
+
+			bindEvent:function(){
+				this.dom.onmousedown = this.mousedown.bind(this);
+			},
+
+			mousedown:function(e){
+				document.onmousemove = this.mousemove.bind(this);
+				document.onmouseup = this.mouseup.bind(this);
+				this.disX = e.clientX - this.dom.offsetLeft;
+				this.disY = e.clientY - this.dom.offsetTop;
+
+			},
+
+			mousemove:function(e){
+				this.dom.style.left = e.clientX - this.disX + 'px';
+				this.dom.style.top = e.clientY - this.disY + 'px';
+			},
+
+			mouseup:function(e){
+				document.onmousemove = null;
+				document.onmouseup = null;
+				manageCookie.setCookie("left",this.dom.offsetLeft,2000).setCookie("top",this.dom.offsetTop,2000);
+			}
+
+
+		}
+
+		   moveDivCookie.init(oDiv);
+	</script>
+</body>
+</html>

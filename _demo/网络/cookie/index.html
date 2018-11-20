@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/*var a = new Date();
+		a.setDate(a.getDate()+3);
+		console.log(a);
+		document.cookie = "age=18;Expires="+a;*/
+
+		var manageCookie={
+			setCookie:function(name,value,time){
+				document.cookie = name+"="+value+";max-age="+time;
+				return this;
+			},
+			removeCookie:function(name){
+				return this.setCookie(name,"",-1);
+			},
+			getCookie:function(name,callback){
+				var allCookieArr = document.cookie.split("; ");
+				for(var i =0;i<allCookieArr.length;i++){
+					var itemCookieArr = allCookieArr[i].split('=');
+					if(name == itemCookieArr[0]){
+						callback(itemCookieArr[1]);
+						return this;
+					}
+				}
+				callback(undefined);
+				return this;
+			}
+		}
+		manageCookie.setCookie("age","18",10000).setCookie("ninlin","18",10000)
+		.removeCookie('age').getCookie("ninin",function(data){console.log(data)});
+	</script>
+	
+</body>
+</html>
